@@ -22,7 +22,7 @@ import enum
 import mysql.connector
 from mysql.connector import errorcode
 import pandas as pd
-from decimal import Decimal 
+from decimal import Decimal
 import pptx
 import pptx.util
 import glob
@@ -60,14 +60,14 @@ def Query_data(cnx):
 			array.append(row)
 			print(row)
 
-			
+
 	except Error as e:
 		print(e)
 	finally:
 		cursor.close()
 
 def connect():
-	
+
 	try:
 	  cnx = mysql.connector.connect(user='root',password='password@123',host='127.0.0.1',
 	                                database='invescoapp_development')
@@ -84,7 +84,7 @@ def connect():
 			print('Connected to  MYSQL database')
 			Query_data(cnx)
 
-	finally : 
+	finally :
 		print "Closing connection."
 		cnx.close()
 
@@ -103,21 +103,21 @@ def format_table_headers(table):
 		_set_cell_border(table.cell(0,c))
 		table.cell(0,c).fill.solid()
 		table.cell(0,c).fill.fore_color.rgb = RGBColor(0xff, 0xff, 0xff)
-		
+
 	for pp in table.cell(0,0).text_frame.paragraphs:
 		for run in pp.runs:
-			run.font.bold = True 
+			run.font.bold = True
 
 def rule_based_formatting(table):
 	class ColorCode(enum.Enum):
-		high = 1 
-		medium = 2 
+		high = 1
+		medium = 2
 		low = 3
 	row = 14
 	for r in range(row):
 		table.cell(r,0).fill.solid()
 		table.cell(r,0).fill.fore_color.rgb = 	RGBColor(154,205,50)
-	
+
 	table.cell(0,0).fill.solid()
 	table.cell(0,0).fill.fore_color.rgb = RGBColor(0xff, 0xff, 0xff)
 
@@ -125,45 +125,45 @@ def rule_based_formatting(table):
 
 def rule_based_formatting_2(table):
 	class ColorCode(enum.Enum):
-		high = 1 
-		medium = 2 
+		high = 1
+		medium = 2
 		low = 3
 	row = 14
 	for r in range(len(table.rows)):
 		table.cell(r,0).fill.solid()
 		table.cell(r,0).fill.fore_color.rgb = 	RGBColor(255,191,0)
-	
+
 	table.cell(0,0).fill.solid()
 	table.cell(0,0).fill.fore_color.rgb = RGBColor(0xff, 0xff, 0xff)
-	pass	
+	pass
 
 def rule_based_formatting_3(table):
 	class ColorCode(enum.Enum):
-		high = 1 
-		medium = 2 
+		high = 1
+		medium = 2
 		low = 3
 	row = 14
 	for r in range(len(table.rows)):
 		table.cell(r,0).fill.solid()
 		table.cell(r,0).fill.fore_color.rgb = 	RGBColor(254,0,5)
-	
+
 	table.cell(0,0).fill.solid()
 	table.cell(0,0).fill.fore_color.rgb = RGBColor(0xff, 0xff, 0xff)
-	pass	
+	pass
 
 def rule_based_formatting_4(table):
 	class ColorCode(enum.Enum):
-		high = 1 
-		medium = 2 
+		high = 1
+		medium = 2
 		low = 3
 	row = 14
 	for r in range(len(table.rows)):
 		table.cell(r,0).fill.solid()
 		table.cell(r,0).fill.fore_color.rgb = 	RGBColor(154,205,50)
-	
+
 	table.cell(0,0).fill.solid()
 	table.cell(0,0).fill.fore_color.rgb = RGBColor(0xff, 0xff, 0xff)
-	pass	
+	pass
 
 def color_red(table,row,column):
 	table.cell(row,column).fill.solid()
@@ -182,7 +182,7 @@ def rule_based_formatting_inventory(table):
 	col = 6
 	c= 1
 	while (c < col):
-		
+
 		if(array[0][c]<80):
 			color_red(table,c+1,3)
 		elif(array[0][c]>90):
@@ -190,10 +190,10 @@ def rule_based_formatting_inventory(table):
 		else:
 			color_yellow(table,c+1,3)
 
-		c = c+1 
-	c = 1 
+		c = c+1
+	c = 1
 	while (c < col):
-		
+
 		if(array[1][c]<80):
 			color_red(table,c+1,4)
 		elif(array[1][c]>90):
@@ -201,7 +201,7 @@ def rule_based_formatting_inventory(table):
 		else:
 			color_yellow(table,c+1,4)
 
-		c = c+1 	
+		c = c+1
 	pass
 
 def rule_based_formatting_security_baseline(table):
@@ -214,7 +214,7 @@ def rule_based_formatting_security_baseline(table):
 			color_green(table,c+2,3)
 		else:
 			color_yellow(table,c+2,3)
-		c = c+1 
+		c = c+1
 
 	c = 7
 	while (c < col ):
@@ -224,7 +224,7 @@ def rule_based_formatting_security_baseline(table):
 			color_green(table,c+2,4)
 		else:
 			color_yellow(table,c+2,4)
-		c = c+1 
+		c = c+1
 	pass
 
 def rule_based_formatting_security_baseline_2(table):
@@ -237,7 +237,7 @@ def rule_based_formatting_security_baseline_2(table):
 			color_green(table,c-10,3)
 		else:
 			color_yellow(table,c-10,3)
-		c = c+1 
+		c = c+1
 		pass
 
 	c = 11
@@ -248,12 +248,12 @@ def rule_based_formatting_security_baseline_2(table):
 			color_green(table,c-10,4)
 		else:
 			color_yellow(table,c-10,4)
-		c = c+1 
+		c = c+1
 		pass
 	pass
 
 def rule_based_formatting_vulnerabilitylandscape(table):
-	col = 23 
+	col = 23
 	c = 18
 	while(c < col ):
 		if(array[0][c] > 20 ):
@@ -262,7 +262,7 @@ def rule_based_formatting_vulnerabilitylandscape(table):
 			color_green(table,c-9,3)
 		else:
 			color_yellow(table,c-9,3)
-		c = c + 1 
+		c = c + 1
 	c = 18
 	while(c < col ):
 		if(array[1][c] > 20 ):
@@ -271,7 +271,7 @@ def rule_based_formatting_vulnerabilitylandscape(table):
 			color_green(table,c-9,4)
 		else:
 			color_yellow(table,c-9,4)
-		c = c + 1 
+		c = c + 1
 	pass
 
 def rule_based_formatting_vulnerabilitylandscape2(table):
@@ -284,7 +284,7 @@ def rule_based_formatting_vulnerabilitylandscape2(table):
 			color_green(table,c-21,3)
 		else :
 			color_yellow(table,c-21,3)
-		c = c+1 
+		c = c+1
 
 	c = 23
 	while(c < col ):
@@ -294,7 +294,7 @@ def rule_based_formatting_vulnerabilitylandscape2(table):
 			color_green(table,c-21,4)
 		else :
 			color_yellow(table,c-21,4)
-		c = c+1 
+		c = c+1
 	pass
 
 def rule_based_formatting_vulnerabilitylandscape3(table):
@@ -307,7 +307,7 @@ def rule_based_formatting_vulnerabilitylandscape3(table):
 			color_green(table,c-20,3)
 		else:
 			color_yellow(table,c-20,3)
-		c = c+1 
+		c = c+1
 	c = 28
 	while ( c < col ):
 		if (array[1][c] > 180 ):
@@ -316,7 +316,7 @@ def rule_based_formatting_vulnerabilitylandscape3(table):
 			color_green(table,c-20,4)
 		else:
 			color_yellow(table,c-20,4)
-		c = c+1 	
+		c = c+1
 	pass
 
 def rule_based_formatting_monitoring(table):
@@ -329,7 +329,7 @@ def rule_based_formatting_monitoring(table):
 			color_green(table,c-33,3)
 		else:
 			color_yellow(table,c-33,3)
-		c = c + 1 
+		c = c + 1
 
 	c = 34
 	while(c < col ):
@@ -339,7 +339,7 @@ def rule_based_formatting_monitoring(table):
 			color_green(table,c-33,4)
 		else:
 			color_yellow(table,c-33,4)
-		c = c + 1 
+		c = c + 1
 	pass
 
 def color_in_grey(table,r,c_start,c_end):
@@ -358,7 +358,7 @@ def format_table_specific_content_2(table):
 	color_in_grey(table,8,3,5)
 	# color_in_grey(table,8,3,5)
 	# color_in_grey(table,13,3,5)
-	pass	
+	pass
 
 def format_table_specific_content_3(table):
 	color_in_grey(table,1,3,5)
@@ -372,11 +372,11 @@ def format_table_specific_content_4(table):
 
 def format_table_content(table):
 	row = 14
-	r = 1 
+	r = 1
 	for r in range(len(table.rows)):
 		table.cell(r,1).fill.solid()
 		table.cell(r,1).fill.fore_color.rgb = RGBColor(211, 211, 211)
-	
+
 
 	for r in range(len(table.rows)):
 		table.cell(r,2).fill.solid()
@@ -395,7 +395,57 @@ def format_table_content(table):
 	table.cell(0,2).fill.fore_color.rgb = RGBColor(0xff, 0xff, 0xff)
 
 
-		
+
+	pass
+def format_table_content_es(table):
+
+	pass
+
+def fixed_table_content_es(table):
+	table.cell(1,0).text = "INV"
+	table.cell(6,0).text = "SEB"
+	table.cell(10,0).text = "VLL"
+	table.cell(15,0).text = "MON"
+	table.cell(16,0).text = "IAM"
+
+
+
+	table.cell(1,1).text = "Asset Inventory"
+
+	table.cell(1,3).text = " "
+	table.cell(1,4).text = " "
+	table.cell(1,5).text = " "
+
+
+
+	table.cell(1,3).text = "Networks"
+	table.cell(2,3).text = "Servers "
+	table.cell(3,3).text = "Endpoints"
+	table.cell(4,3).text = "Database"
+	table.cell(5,3).text = "Applications"
+	table.cell(6,3).text = "Networks"
+	table.cell(7,3).text = "Servers "
+	table.cell(8,3).text = "Endpoints"
+	table.cell(9,3).text = "Database"
+	table.cell(10,3).text = "Networks"
+	table.cell(11,3).text = "Servers "
+	table.cell(12,3).text = "Endpoints"
+	table.cell(13,3).text = "Database"
+	table.cell(14,3).text = "Applications"
+	table.cell(15,3).text = "Overall"
+	table.cell(16,3).text = "Overall"
+
+
+	for cell in iter_cells(table):
+		for paragraph in cell.text_frame.paragraphs:
+			for run in paragraph.runs:
+				run.font.size = Pt(9)
+				run.font.color.rgb = RGBColor(0,0,0)
+
+
+
+
+
 	pass
 
 def fixed_table_content(table):
@@ -447,7 +497,7 @@ def fixed_table_content(table):
 	table.cell(12,4).text = str(Decimal(array[1][10]).normalize())+"%"
 	table.cell(13,2).text = " "
 	rule_based_formatting_security_baseline(table)
-	 
+
 
 
 
@@ -482,19 +532,19 @@ def fixed_table_content_2(table):
 	table.cell(9,2).text = "Networks"
 	table.cell(9,3).text = str(Decimal(array[0][18]).normalize())+"%"
 	table.cell(9,4).text = str(Decimal(array[1][18]).normalize())+"%"
-	
+
 	table.cell(10,2).text = "Servers"
 	table.cell(10,3).text = str(Decimal(array[0][19]).normalize())+"%"
 	table.cell(10,4).text = str(Decimal(array[1][19]).normalize())+"%"
-	
+
 	table.cell(11,2).text = "Endpoints"
 	table.cell(11,3).text = str(Decimal(array[0][20]).normalize())+"%"
 	table.cell(11,4).text = str(Decimal(array[1][20]).normalize())+"%"
-	
+
 	table.cell(12,2).text = "Database"
 	table.cell(12,3).text = str(Decimal(array[0][21]).normalize())+"%"
 	table.cell(12,4).text = str(Decimal(array[1][21]).normalize())+"%"
-	
+
 	table.cell(13,2).text = "Applications"
 	table.cell(13,3).text = str(Decimal(array[0][22]).normalize())+"%"
 	table.cell(13,4).text = str(Decimal(array[1][22]).normalize())+"%"
@@ -527,7 +577,7 @@ def fixed_table_content_2(table):
 	table.cell(7,3).text = str(array[0][17])
 	table.cell(7,4).text = str(array[1][17])
 	table.cell(8,2).text = "% of assets with High and critical (4&5) vulnerabilities"
-	
+
 
 
 
@@ -561,20 +611,20 @@ def fixed_table_content_3(table):
 	table.cell(1,3).text = " "
 	table.cell(1,4).text = " "
 	table.cell(1,5).text = " "
-	
+
 	table.cell(7,1).text = "What is our Risk ?"
 	table.cell(7,2).text = "Average Age of Open Vulnerabilities (in # of days)"
 	table.cell(13,0).text = "Monitoring"
 	table.cell(13,1).text = "Measure of assets not monitored"
 	table.cell(13,2).text = "% of Assets not being monitored"
-	
+
 
 	# table.cell(8,0).text = "Vulnerability Landscape"
 	# table.cell(8,1).text = "Measure of Vulnerabilities in infrastructure "
 	table.cell(7,3).text = " "
 	table.cell(7,4).text = " "
 	table.cell(7,5).text = " "
-	
+
 
 
 
@@ -622,20 +672,20 @@ def fixed_table_content_3(table):
 		color_red(table,14,3)
 	elif(val < 5 ):
 		color_green(table,14,3)
-	else : 
+	else :
 		color_yellow(table,14,3)
 
 	if ( val2 > 15):
 		color_red(table,14,4)
 	elif(val2 < 5 ):
 		color_green(table,14,4)
-	else : 
+	else :
 		color_yellow(table,14,4)
 
 
-	
 
-	
+
+
 
 
 
@@ -708,13 +758,13 @@ def _set_cell_border(cell, border_color="000000", border_width='12700'):
         prstDash = SubElement(ln, 'a:prstDash', val='solid')
         round_ = SubElement(ln, 'a:round')
         headEnd = SubElement(ln, 'a:headEnd', type='none', w='med', len='med')
-        tailEnd = SubElement(ln, 'a:tailEnd', type='none', w='med', len='med')	          
+        tailEnd = SubElement(ln, 'a:tailEnd', type='none', w='med', len='med')
 
 def plot_PriorityvsRisk_slide1():
 
 	slide = prs.slides.add_slide(prs.slide_layouts[3])
 
-	#Declare the chart 
+	#Declare the chart
 
 	chart_data = BubbleChartData()
 
@@ -739,7 +789,7 @@ def plot_PriorityvsRisk_slide1():
 	value_axis.axis_title.text_frame.text = 'Priority'
 	category_axis.axis_title.text_frame.text = 'Risk'
 	chart.has_legend = True
-	value_axis.has_major_gridlines = False 
+	value_axis.has_major_gridlines = False
 	value_axis.major_tick_mark = XL_TICK_MARK.NONE
 	plot  = chart.plots[0]
 	# print plot.has_data_labels
@@ -765,8 +815,57 @@ def plot_PriorityvsRisk_slide1():
 
 	prs.save('chart-01.pptx')
 
+def plot_executivesummary():
+	TITLE_AND_CONTENT = 1
+	slide = prs.slides.add_slide(prs.slide_layouts[TITLE_AND_CONTENT])
+	shapes = slide.shapes
+	title = shapes.title
+	text_frame = title.text_frame
+	p = text_frame.paragraphs[0]
+	run = p.add_run()
+	run.text = 'Executive Summary – Infrastructure Risk Overview '
+	font = run.font
+	font.name = 'Verdana'
+	font.size = Pt(15)
+	font.bold = True
+	font.italic = None
+	for shape in slide.shapes:
+		if shape.is_placeholder:
+			phf = shape.placeholder_format
+	        print('%d, %s' % (phf.idx, phf.type))
+
+
+	rows = 17
+	cols = 6
+	left =  Inches(0.5)
+	top = Inches(0.70)
+	# right = Inches(0.5)
+	width = Inches(6.0)
+	height = Inches(0.02)
+	table = shapes.add_table(rows, cols, left, top, width, height).table
+
+	# set column widths
+	table.columns[0].width = Inches(1.5)
+	table.columns[1].width = Inches(1.5)
+	table.columns[2].width = Inches(3.0)
+
+	table.cell(0, 0).text = 'ID'
+	table.cell(0, 1).text = 'Category'
+	table.cell(0, 2).text = 'Highlights'
+	table.cell(0, 3).text = ' '
+	table.cell(0, 4).text = ' '
+	table.cell(0, 5).text = 'Trend'
+
+	format_table_headers(table)
+	fixed_table_content_es(table)
+	format_table_content_es(table)
+	prs.save('chart-01.pptx')
+
+
+
+
 def plot_DetailedMetrics():
-	TITLE_AND_CONTENT = 1 
+	TITLE_AND_CONTENT = 1
 	slide = prs.slides.add_slide(prs.slide_layouts[TITLE_AND_CONTENT])
 	shapes = slide.shapes
 	title = shapes.title
@@ -781,6 +880,8 @@ def plot_DetailedMetrics():
 	font.size = Pt(20)
 	font.bold = True
 	font.italic = None  # cause value to be inherited from theme
+
+
 
 	#adding a table
 
@@ -811,9 +912,9 @@ def plot_DetailedMetrics():
 	table.cell(0, 3).text = 'Previous Score'
 	table.cell(0, 4).text = 'Current Score'
 	table.cell(0, 5).text = 'Risk Trend'
-	
-	
-	
+
+
+
 	format_table_headers(table)
 	fixed_table_content(table)
 	format_table_content(table)
@@ -823,7 +924,7 @@ def plot_DetailedMetrics():
 		for paragraph in cell.text_frame.paragraphs:
 			for run in paragraph.runs:
 				run.font.size = Pt(10)
-				run.font.color.rgb = RGBColor(0,0,0) 
+				run.font.color.rgb = RGBColor(0,0,0)
 
 
 
@@ -833,12 +934,12 @@ def plot_DetailedMetrics():
 
 	rule_based_formatting(table)
 
-	
+
 
 	prs.save('chart-01.pptx')
 
 def plot_DetailedMetrics_2():
-	TITLE_AND_CONTENT = 1 
+	TITLE_AND_CONTENT = 1
 	slide = prs.slides.add_slide(prs.slide_layouts[TITLE_AND_CONTENT])
 	shapes = slide.shapes
 	title = shapes.title
@@ -883,9 +984,9 @@ def plot_DetailedMetrics_2():
 	table.cell(0, 3).text = 'Previous Score'
 	table.cell(0, 4).text = 'Current Score'
 	table.cell(0, 5).text = 'Risk Trend'
-	
+
 	# table.cell(1,3).text = "what is this"
-	
+
 	format_table_headers(table)
 	fixed_table_content_2(table)
 	format_table_content(table)
@@ -895,7 +996,7 @@ def plot_DetailedMetrics_2():
 		for paragraph in cell.text_frame.paragraphs:
 			for run in paragraph.runs:
 				run.font.size = Pt(10)
-				run.font.color.rgb = RGBColor(0,0,0) 
+				run.font.color.rgb = RGBColor(0,0,0)
 
 	rule_based_formatting_2(table)
 
@@ -903,16 +1004,16 @@ def plot_DetailedMetrics_2():
 	# _set_cell_border(table.cell(1,0))
 	# _set_cell_border(table.cell(2,0))
 
-		
 
-	
+
+
 
 	prs.save('chart-01.pptx')
 
 	pass
 
 def plot_DetailedMetrics_3():
-	TITLE_AND_CONTENT = 1 
+	TITLE_AND_CONTENT = 1
 	slide = prs.slides.add_slide(prs.slide_layouts[TITLE_AND_CONTENT])
 	shapes = slide.shapes
 	title = shapes.title
@@ -957,9 +1058,9 @@ def plot_DetailedMetrics_3():
 	table.cell(0, 3).text = 'Previous Score'
 	table.cell(0, 4).text = 'Current Score'
 	table.cell(0, 5).text = 'Risk Trend'
-	
+
 	table.cell(1,3).text = "what is this"
-	
+
 	format_table_headers(table)
 	fixed_table_content_3(table)
 	format_table_content(table)
@@ -969,7 +1070,7 @@ def plot_DetailedMetrics_3():
 		for paragraph in cell.text_frame.paragraphs:
 			for run in paragraph.runs:
 				run.font.size = Pt(10)
-				run.font.color.rgb = RGBColor(0,0,0) 
+				run.font.color.rgb = RGBColor(0,0,0)
 
 	rule_based_formatting_3(table)
 
@@ -977,9 +1078,9 @@ def plot_DetailedMetrics_3():
 	# _set_cell_border(table.cell(1,0))
 	# _set_cell_border(table.cell(2,0))
 
-		
 
-	
+
+
 
 	prs.save('chart-01.pptx')
 
@@ -987,7 +1088,7 @@ def plot_DetailedMetrics_3():
 	pass
 
 def plot_DetailedMetrics_4():
-	TITLE_AND_CONTENT = 1 
+	TITLE_AND_CONTENT = 1
 	slide = prs.slides.add_slide(prs.slide_layouts[TITLE_AND_CONTENT])
 	shapes = slide.shapes
 	title = shapes.title
@@ -1032,9 +1133,9 @@ def plot_DetailedMetrics_4():
 	table.cell(0, 3).text = 'Previous Score'
 	table.cell(0, 4).text = 'Current Score'
 	table.cell(0, 5).text = 'Risk Trend'
-	
+
 	# table.cell(1,3).text = "what is this"
-	
+
 	format_table_headers(table)
 	fixed_table_content_4(table)
 	format_table_content(table)
@@ -1044,7 +1145,7 @@ def plot_DetailedMetrics_4():
 		for paragraph in cell.text_frame.paragraphs:
 			for run in paragraph.runs:
 				run.font.size = Pt(10)
-				run.font.color.rgb = RGBColor(0,0,0) 
+				run.font.color.rgb = RGBColor(0,0,0)
 
 	rule_based_formatting_4(table)
 
@@ -1052,9 +1153,9 @@ def plot_DetailedMetrics_4():
 	# _set_cell_border(table.cell(1,0))
 	# _set_cell_border(table.cell(2,0))
 
-		
 
-	
+
+
 
 	prs.save('chart-01.pptx')
 
@@ -1188,10 +1289,11 @@ def plot_comments():
 	pass
 
 def main():
-	#create slide 1 
+	#create slide 1
 	connect()
 	populate_data()
 	plot_PriorityvsRisk_slide1()
+	plot_executivesummary()
 	plot_DetailedMetrics()
 	plot_DetailedMetrics_2()
 	plot_DetailedMetrics_3()
