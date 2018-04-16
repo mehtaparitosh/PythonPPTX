@@ -27,14 +27,22 @@ import pptx.util
 import glob
 import scipy.misc
 
-prs = Presentation('having-table-placeholder.pptx')
+prs = Presentation()
+# slide = prs.slides.add_slide(prs.slide_layouts[1])
+# for shape in slide.placeholders:
+#     print('%d %s' % (shape.placeholder_format.idx, shape.name))
+# print slide.placeholders[0].name
+
+
 slide = prs.slides.add_slide(prs.slide_layouts[1])
-placeholder = slide.placeholders[10]  # idx key, not position
-print placeholder.name
-# //'Table Placeholder 1'
-print placeholder.placeholder_format.type
+table_placeholder = slide.placeholders[1]
+table = table_placeholder.insert_table(rows=2, cols=2)
+# placeholder = slide.placeholders[10]  # idx key, not position
+# print placeholder.name
+# # //'Table Placeholder 1'
+# print placeholder.shape_type
 # //TABLE (12)
-graphic_frame = placeholder.insert_table(rows=2, cols=2)
-table = graphic_frame.table
-print  len(table.rows), len(table.columns)
+# graphic_frame = placeholder.insert_table(rows=2, cols=2)
+# table = graphic_frame.table
+# print  len(table.rows), len(table.columns)
 # //(2, 2)
